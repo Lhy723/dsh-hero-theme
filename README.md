@@ -4,6 +4,8 @@
 
 <p align="center">
   <a href="https://github.com/Lhy723/dsh-hero-theme/stargazers"><img src="https://img.shields.io/github/stars/Lhy723/dsh-hero-theme?style=flat-square&logo=github&label=stars" alt="GitHub stars"></a>
+  <a href="https://www.npmjs.com/package/dsh-hero-theme"><img src="https://img.shields.io/npm/v/dsh-hero-theme?style=flat-square&logo=npm" alt="npm version"></a>
+  <a href="https://www.npmjs.com/package/dsh-hero-theme"><img src="https://img.shields.io/npm/dm/dsh-hero-theme?style=flat-square" alt="npm downloads"></a>
   <img src="https://img.shields.io/badge/license-MIT-0f1115?style=flat-square" alt="MIT license">
   <img src="https://img.shields.io/badge/DSH-%5E0.2.2--rc.1-0485f7?style=flat-square" alt="DSH ^0.2.2-rc.1">
   <img src="https://img.shields.io/badge/HeroUI-v3-7577f0?style=flat-square" alt="HeroUI v3">
