@@ -1,5 +1,5 @@
 <p align="center">
-  <img src=".github/asset/dsh-hero-theme-hero.webp" alt="dsh-hero-theme — DeepSeek Harness 的 HeroUI v3 主题构建器" width="100%">
+  <img src=".github/asset/dsh-hero-theme-hero.webp?v=0485f7" alt="dsh-hero-theme — DeepSeek Harness 的 HeroUI v3 主题构建器" width="100%">
 </p>
 
 <p align="center">
@@ -25,8 +25,8 @@
 ## 预览
 
 <p align="center">
-  <img src=".github/asset/light.webp" alt="HeroUI 浅色主题预览" width="49%">
-  <img src=".github/asset/dark.webp" alt="HeroUI 深色主题预览" width="49%">
+  <img src=".github/asset/light.webp?v=0485f7" alt="HeroUI 浅色主题预览" width="49%">
+  <img src=".github/asset/dark.webp?v=0485f7" alt="HeroUI 深色主题预览" width="49%">
 </p>
 
 <p align="center"><sub>基于生成令牌的浅色 / 深色预览，使用代表性 DSH 布局渲染。</sub></p>
@@ -45,8 +45,8 @@
 ## 主题构建器
 
 <p align="center">
-  <img src=".github/asset/builder-light.webp" alt="浅色模式下的 HeroUI 主题构建器" width="49%">
-  <img src=".github/asset/builder-dark.webp" alt="深色模式下的 HeroUI 主题构建器" width="49%">
+  <img src=".github/asset/builder-light.webp?v=0485f7" alt="浅色模式下的 HeroUI 主题构建器" width="49%">
+  <img src=".github/asset/builder-dark.webp?v=0485f7" alt="深色模式下的 HeroUI 主题构建器" width="49%">
 </p>
 
 <p align="center"><sub>设置 → 通用 → HeroUI 主题。滑杆、Tabs 与 Select 均为 HeroUI 风格控件。</sub></p>
