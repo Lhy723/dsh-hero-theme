@@ -1,10 +1,55 @@
-# dsh-hero-theme
+<p align="center">
+  <img src=".github/asset/dsh-hero-theme-hero.webp" alt="dsh-hero-theme — DeepSeek Harness 的 HeroUI v3 主题构建器" width="100%">
+</p>
 
-**DeepSeek Harness Web 与内嵌桌面工作区**的 **HeroUI v3 主题构建器**。在 设置 → 通用 中实时调节 Accent、Base、字体、Radius、Radius Form 与明暗模式，插件会重新生成完整的 DSH 令牌层。
+<p align="center">
+  <a href="https://github.com/Lhy723/dsh-hero-theme/stargazers"><img src="https://img.shields.io/github/stars/Lhy723/dsh-hero-theme?style=flat-square&logo=github&label=stars" alt="GitHub stars"></a>
+  <img src="https://img.shields.io/badge/license-MIT-0f1115?style=flat-square" alt="MIT license">
+  <img src="https://img.shields.io/badge/DSH-%5E0.2.2--rc.1-0485f7?style=flat-square" alt="DSH ^0.2.2-rc.1">
+  <img src="https://img.shields.io/badge/HeroUI-v3-7577f0?style=flat-square" alt="HeroUI v3">
+  <img src="https://img.shields.io/badge/theme-builder-00a6a6?style=flat-square" alt="Theme builder">
+  <a href="https://github.com/Lhy723/dsh-hero-theme/pulls"><img src="https://img.shields.io/badge/PRs-welcome-17c964?style=flat-square" alt="PRs welcome"></a>
+</p>
 
-English docs: [README.md](README.md)。
+<h1 align="center">dsh-hero-theme</h1>
 
-## 可调项
+<p align="center">
+  <b>DeepSeek Harness Web 与内嵌桌面工作区</b>的 <b>HeroUI v3 主题构建器</b>。<br>
+  六个实时控件重新生成完整的 DSH 令牌层 —— 不用重新构建，也不用重启 profile。
+</p>
+
+<p align="center">
+  <a href="README.md">English</a> · <b>中文</b>
+</p>
+
+## 预览
+
+<p align="center">
+  <img src=".github/asset/light.webp" alt="HeroUI 浅色主题预览" width="49%">
+  <img src=".github/asset/dark.webp" alt="HeroUI 深色主题预览" width="49%">
+</p>
+
+<sub align="center">基于生成令牌的浅色 / 深色预览，使用代表性 DSH 布局渲染。</sub>
+
+## 特性
+
+| | |
+| --- | --- |
+| **六个实时控件** | Accent 色相、Base 彩度、Font Family、Radius、Radius Form、浅色 / 深色 / 跟随系统。 |
+| **167 个令牌 × 2 套方案** | 所有 alias、specific、Shiki、圆角、阴影与时长令牌都由配置重新生成。 |
+| **HeroUI 构建器公式** | Accent `oklch(62.04% 0.195 hue)`、中性色彩度缩放、语义色相旋转、圆角比例。 |
+| **组件几何与动效** | HeroUI Slider、Tabs、Select、Button、MenuSurface、Dialog、Tooltip 的尺寸与进出场动画。 |
+| **无需重建循环** | 通过一次 `ctx.theme.overrideTokens()` 应用，并写入当前 profile 的 Cordis patch。 |
+| **尊重减少动态效果** | 所有新增过渡与进出场动画在 `prefers-reduced-motion: reduce` 下关闭。 |
+
+## 主题构建器
+
+<p align="center">
+  <img src=".github/asset/builder-light.webp" alt="浅色模式下的 HeroUI 主题构建器" width="49%">
+  <img src=".github/asset/builder-dark.webp" alt="深色模式下的 HeroUI 主题构建器" width="49%">
+</p>
+
+<sub align="center">设置 → 通用 → HeroUI 主题。滑杆、Tabs 与 Select 均为 HeroUI 风格控件。</sub>
 
 | 控件 | 范围 | 默认值 | 作用 |
 | --- | --- | --- | --- |
@@ -30,7 +75,7 @@ English docs: [README.md](README.md)。
 | accent | `oklch(62.04% 0.195 hue)` | 相同 |
 | success / warning / danger | HeroUI 语义色相，按 accent 色相差的 `12%` 旋转 | 相同 |
 
-圆角：HeroUI 组件令牌使用 `3×`（卡片）、`2.5×`（Tabs）、`2× + 6px`（Popover），表单圆角独立。DSH 语义圆角映射为 `xs 0.5× / sm 1× / md 1.5× / lg 2× / xl-panel 3×`，这样原生行、菜单和卡片保持原本的比例，不会退化成 HeroUI 原始的 2/4/6px 小圆角。所有 DSH alias、specific、Shiki、圆角、阴影与时长令牌都由这份配置生成，不会留下未覆盖的组件。
+圆角：HeroUI 组件令牌使用 `3×`（卡片）、`2.5×`（Tabs）、`2× + 6px`（Popover），表单圆角独立。DSH 语义圆角映射为 `xs 0.5× / sm 1× / md 1.5× / lg 2× / xl-panel 3×`，原生行、菜单和卡片保持原本比例。
 
 ## 品牌视觉层
 
@@ -64,6 +109,14 @@ pnpm add dsh-hero-theme
 打开 **设置 → 通用 → HeroUI 主题**。拖动 Accent/Base/Radius/Radius Form，选择字体与明暗；每次修改立即生效并写入当前 profile 的 Cordis patch。**重置** 回到构建器默认值。
 
 ## 实现方式
+
+```mermaid
+flowchart LR
+  A[Profile Config<br/>6 个易失字段] --> B[src/palette.js]
+  B --> C[167 个令牌<br/>light + dark]
+  C --> D[ctx.theme.overrideTokens]
+  D --> E[DSH Web / Desktop UI]
+```
 
 1. Host 声明六个易失 Config 字段：`theme`、`accentHue`、`baseChroma`、`fontFamily`、`radius`、`fieldRadius`。
 2. 浏览器端读取该配置，调用 `buildAllTokens()` 同时生成浅色与深色调色板。
@@ -102,6 +155,7 @@ dsh-hero-theme/
 ├── scripts/
 │   ├── build.mjs         # 零依赖构建
 │   └── check-compat.mjs  # DSH API、调色板、对比度与 CSS 契约
+├── .github/asset/        # README 横幅与预览图
 ├── LICENSES/             # HeroUI 衍生内容使用的 Apache-2.0 文本
 └── lib/                  # 生成产物（安装/打包时自动重建）
 ```

@@ -18,7 +18,8 @@
     "README.zh.md",
     "LICENSE",
     "NOTICE",
-    "LICENSES"
+    "LICENSES",
+    ".github/asset/*.webp"
   ],
   "keywords": [
     "deepseek-harness",

@@ -1,10 +1,55 @@
-# dsh-hero-theme
+<p align="center">
+  <img src=".github/asset/dsh-hero-theme-hero.webp" alt="dsh-hero-theme — HeroUI v3 theme builder for DeepSeek Harness" width="100%">
+</p>
 
-A **HeroUI v3 theme builder** for DeepSeek Harness Web and the embedded Desktop workspace. Adjust the accent hue, neutral tint, font family, radius, form radius and light/dark mode from Settings → General, and the plugin regenerates the complete DSH token layer live.
+<p align="center">
+  <a href="https://github.com/Lhy723/dsh-hero-theme/stargazers"><img src="https://img.shields.io/github/stars/Lhy723/dsh-hero-theme?style=flat-square&logo=github&label=stars" alt="GitHub stars"></a>
+  <img src="https://img.shields.io/badge/license-MIT-0f1115?style=flat-square" alt="MIT license">
+  <img src="https://img.shields.io/badge/DSH-%5E0.2.2--rc.1-0485f7?style=flat-square" alt="DSH ^0.2.2-rc.1">
+  <img src="https://img.shields.io/badge/HeroUI-v3-7577f0?style=flat-square" alt="HeroUI v3">
+  <img src="https://img.shields.io/badge/theme-builder-00a6a6?style=flat-square" alt="Theme builder">
+  <a href="https://github.com/Lhy723/dsh-hero-theme/pulls"><img src="https://img.shields.io/badge/PRs-welcome-17c964?style=flat-square" alt="PRs welcome"></a>
+</p>
 
-中文说明见 [README.zh.md](README.zh.md)。
+<h1 align="center">dsh-hero-theme</h1>
 
-## Controls
+<p align="center">
+  A <b>HeroUI v3 theme builder</b> for DeepSeek Harness Web and the embedded Desktop workspace.<br>
+  Six live controls regenerate the complete DSH token layer — no rebuild, no profile restart.
+</p>
+
+<p align="center">
+  <b>English</b> · <a href="README.zh.md">中文</a>
+</p>
+
+## Preview
+
+<p align="center">
+  <img src=".github/asset/light.webp" alt="HeroUI light theme preview" width="49%">
+  <img src=".github/asset/dark.webp" alt="HeroUI dark theme preview" width="49%">
+</p>
+
+<sub align="center">Preview renders of the generated light and dark palettes in a representative DSH layout.</sub>
+
+## Highlights
+
+| | |
+| --- | --- |
+| **Six live controls** | Accent hue, Base chroma, Font Family, Radius, Radius Form, Light / Dark / System. |
+| **167 tokens × 2 schemes** | Every alias, specific, Shiki, radius, shadow and timing token is regenerated from the config. |
+| **HeroUI builder formulas** | Accent `oklch(62.04% 0.195 hue)`, neutral chroma scaling, semantic hue rotation, radius scale. |
+| **Component geometry** | HeroUI Slider, Tabs, Select, Button, MenuSurface, Dialog and Tooltip geometry plus enter/exit motion. |
+| **No rebuild loop** | Changes apply through one `ctx.theme.overrideTokens()` layer and persist to the profile Cordis patch. |
+| **Reduced motion aware** | All added transitions and enter/exit animations stop under `prefers-reduced-motion: reduce`. |
+
+## Theme builder
+
+<p align="center">
+  <img src=".github/asset/builder-light.webp" alt="HeroUI theme builder in light mode" width="49%">
+  <img src=".github/asset/builder-dark.webp" alt="HeroUI theme builder in dark mode" width="49%">
+</p>
+
+<sub align="center">Settings → General → HeroUI theme. The sliders, Tabs and Select are HeroUI-styled controls.</sub>
 
 | Control | Range | Default | What it changes |
 | --- | --- | --- | --- |
@@ -30,7 +75,7 @@ The generator mirrors the HeroUI v3 theme builder formulas:
 | accent | `oklch(62.04% 0.195 hue)` | same |
 | success / warning / danger | HeroUI semantic hues, rotated by `12%` of the accent hue delta | same |
 
-Radii: HeroUI component tokens use `3×` (cards), `2.5×` (tabs), `2× + 6px` (popovers) and a separate form radius. DSH's semantic scale is `xs 0.5× / sm 1× / md 1.5× / lg 2× / xl-panel 3×`, so native rows, menus and cards keep their intended proportions instead of collapsing to HeroUI's raw 2/4/6px steps.
+Radii: HeroUI component tokens use `3×` (cards), `2.5×` (tabs), `2× + 6px` (popovers) and a separate form radius. DSH's semantic scale is `xs 0.5× / sm 1× / md 1.5× / lg 2× / xl-panel 3×`, so native rows, menus and cards keep their intended proportions.
 
 ## Brand layer
 
@@ -65,6 +110,14 @@ Add `"dsh-hero-theme"` to `dsh.profile.bundles` in that profile's
 Then open **Settings → General → HeroUI theme**. Drag Accent/Base/Radius/Radius Form, choose a font and theme; every change applies immediately and is saved into the active profile's Cordis patch. **Reset** returns to the builder defaults.
 
 ## How it works
+
+```mermaid
+flowchart LR
+  A[Profile Config<br/>6 volatile fields] --> B[src/palette.js]
+  B --> C[167 tokens<br/>light + dark]
+  C --> D[ctx.theme.overrideTokens]
+  D --> E[DSH Web / Desktop UI]
+```
 
 1. The Host declares six volatile Config fields: `theme`, `accentHue`, `baseChroma`, `fontFamily`, `radius`, `fieldRadius`.
 2. The browser half reads that config and calls `buildAllTokens()` to generate both light and dark palettes.
@@ -103,6 +156,7 @@ dsh-hero-theme/
 ├── scripts/
 │   ├── build.mjs         # zero-dependency build
 │   └── check-compat.mjs  # DSH API, palette, contrast and CSS contract
+├── .github/asset/        # README banner and preview renders
 ├── LICENSES/             # Apache-2.0 text for the HeroUI-derived material
 └── lib/                  # generated artifacts (rebuilt on install/pack)
 ```
