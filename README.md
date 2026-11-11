@@ -1,5 +1,5 @@
 <p align="center">
-  <img src=".github/asset/dsh-hero-theme-hero.webp?v=0485f7" alt="dsh-hero-theme — HeroUI v3 theme builder for DeepSeek Harness" width="100%">
+  <img src=".github/asset/dsh-hero-theme-hero-blue.webp" alt="dsh-hero-theme — HeroUI v3 theme builder for DeepSeek Harness" width="100%">
 </p>
 
 <p align="center">
@@ -25,8 +25,8 @@
 ## Preview
 
 <p align="center">
-  <img src=".github/asset/light.webp?v=0485f7" alt="HeroUI light theme preview" width="49%">
-  <img src=".github/asset/dark.webp?v=0485f7" alt="HeroUI dark theme preview" width="49%">
+  <img src=".github/asset/light-blue.webp" alt="HeroUI light theme preview" width="49%">
+  <img src=".github/asset/dark-blue.webp" alt="HeroUI dark theme preview" width="49%">
 </p>
 
 <p align="center"><sub>Preview renders of the generated light and dark palettes in a representative DSH layout.</sub></p>
@@ -45,8 +45,8 @@
 ## Theme builder
 
 <p align="center">
-  <img src=".github/asset/builder-light.webp?v=0485f7" alt="HeroUI theme builder in light mode" width="49%">
-  <img src=".github/asset/builder-dark.webp?v=0485f7" alt="HeroUI theme builder in dark mode" width="49%">
+  <img src=".github/asset/builder-light-blue.webp" alt="HeroUI theme builder in light mode" width="49%">
+  <img src=".github/asset/builder-dark-blue.webp" alt="HeroUI theme builder in dark mode" width="49%">
 </p>
 
 <p align="center"><sub>Settings → General → HeroUI theme. The sliders, Tabs and Select are HeroUI-styled controls.</sub></p>
