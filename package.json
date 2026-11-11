@@ -1,6 +1,6 @@
 {
   "name": "dsh-hero-theme",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "description": "HeroUI v3 theme builder for DeepSeek Harness Web and its embedded Desktop workspace — live Accent, Base, Font Family, Radius, Radius Form and Light/Dark/System controls with generated tokens, brand gradient, opaque surfaces and HeroUI motion. · DeepSeek Harness Web 与桌面工作区的 HeroUI v3 主题构建器：实时调节 Accent、Base、字体、圆角、表单圆角与明暗，自动生成令牌并保留 HeroUI 品牌渐变、不透明表面与动效。",
   "license": "MIT",
   "type": "module",
