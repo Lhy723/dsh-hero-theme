@@ -493,7 +493,7 @@ body[data-dsh-hero] .hero-slider__track {
 	box-sizing: border-box;
 	border-left: 12px solid transparent;
 	border-right: 12px solid transparent;
-	border-radius: 12px;
+	border-radius: 9999px;
 	background: var(--dsw-alias-interactive-bg-hover);
 	pointer-events: none;
 }
@@ -503,7 +503,7 @@ body[data-dsh-hero] .hero-slider__fill {
 	top: 0;
 	bottom: 0;
 	left: -12px;
-	border-radius: 12px 0 0 12px;
+	border-radius: 9999px 0 0 9999px;
 	background: var(--dsw-alias-brand-primary);
 }
 
@@ -513,7 +513,7 @@ body[data-dsh-hero] .hero-slider__thumb {
 	width: 28px;
 	height: 20px;
 	transform: translate(-50%, -50%);
-	border-radius: 12px;
+	border-radius: 9999px;
 	background: var(--dsw-alias-brand-primary);
 	display: flex;
 	align-items: center;
@@ -524,7 +524,7 @@ body[data-dsh-hero] .hero-slider__thumb {
 body[data-dsh-hero] .hero-slider__thumb-inner {
 	width: 24px;
 	height: 16px;
-	border-radius: 8px;
+	border-radius: 9999px;
 	background: var(--dsw-alias-label-primary-foreground);
 	box-shadow: var(--dsw-shadow-lv1);
 	transition: transform 250ms var(--hero-ease);
