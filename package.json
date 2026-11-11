@@ -1,0 +1,89 @@
+{
+  "name": "dsh-hero-theme",
+  "version": "0.2.8",
+  "description": "HeroUI v3 theme builder for DeepSeek Harness Web and its embedded Desktop workspace — live Accent, Base, Font Family, Radius, Radius Form and Light/Dark/System controls with generated tokens, brand gradient, opaque surfaces and HeroUI motion. · DeepSeek Harness Web 与桌面工作区的 HeroUI v3 主题构建器：实时调节 Accent、Base、字体、圆角、表单圆角与明暗，自动生成令牌并保留 HeroUI 品牌渐变、不透明表面与动效。",
+  "license": "MIT",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/client.js",
+    "cordis.patch.yml",
+    "README.md",
+    "README.zh.md",
+    "LICENSE",
+    "NOTICE",
+    "LICENSES"
+  ],
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "plugin",
+    "dsh-plugin",
+    "theme",
+    "skin",
+    "heroui",
+    "nextui",
+    "design-system",
+    "web-ui",
+    "desktop",
+    "theme-builder",
+    "customization",
+    "tokens"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-connection",
+        "@deepseek-ai/dsh-client-store",
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-settings",
+        "@deepseek-ai/dsh-api-remotes",
+        "@deepseek-ai/dsh-client-ui-theme"
+      ],
+      "platform": "web",
+      "immediately": true
+    }
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "@deepseek-ai/cordis": "^4.1.0",
+    "@deepseek-ai/dsh-client-ui-theme": "^0.2.2-rc.1",
+    "@deepseek-ai/dsh-client-locale": "^0.2.2-rc.1",
+    "@deepseek-ai/dsh-client-ui-slots": "^0.2.2-rc.1",
+    "@deepseek-ai/dsh-client-connection": "^0.2.2-rc.1",
+    "@deepseek-ai/dsh-client-ui-settings": "^0.2.2-rc.1",
+    "@deepseek-ai/dsh-api-remotes": "^0.2.2-rc.1",
+    "@deepseek-ai/dsh-settings": "^0.2.2-rc.1",
+    "@deepseek-ai/dsh-client-store": "^0.2.2-rc.1"
+  },
+  "dependencies": {
+    "@deepseek-ai/schemastery": "^3.19.0"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "npm run build && node --check src/index.js && node --check src/client.tpl.js && node --check lib/client.js && node --check lib/index.js && node scripts/check-compat.mjs",
+    "prepare": "node scripts/build.mjs",
+    "prepack": "node scripts/build.mjs"
+  },
+  "author": "Lhy723",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lhy723/dsh-hero-theme.git"
+  },
+  "homepage": "https://github.com/Lhy723/dsh-hero-theme",
+  "bugs": {
+    "url": "https://github.com/Lhy723/dsh-hero-theme/issues"
+  },
+  "engines": {
+    "dsh": "^0.2.2-rc.1"
+  }
+}

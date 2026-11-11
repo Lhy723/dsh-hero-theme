@@ -1,0 +1,9 @@
+dsh-hero-theme
+Copyright (c) 2026 Lhy723
+
+This project's design tokens, component radii, shadow values and interaction
+timing are derived from HeroUI (https://github.com/heroui-inc/heroui),
+Copyright (c) HeroUI, licensed under the Apache License, Version 2.0.
+
+A copy of the Apache License, Version 2.0 is included in LICENSES/Apache-2.0.txt.
+The plugin code in this repository is licensed under the MIT License; see LICENSE.

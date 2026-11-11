@@ -1,0 +1,5 @@
+# dsh-hero-theme profile patch layer — insert the plugin's loader entry.
+# The id matches the ConfigForms key owning the selected skin preference.
+- insert:
+    - id: dsh-hero-theme
+      name: 'dsh-hero-theme'
