@@ -221,16 +221,18 @@ window.__ModuleLoader__.load({
 					(0, react_jsx_runtime.jsxs)("div", {
 						className: "hero-slider__track",
 						"aria-hidden": "true",
+						style: { borderRadius: "9999px" },
 						children: [
 							(0, react_jsx_runtime.jsx)("div", {
 								className: "hero-slider__fill",
-								style: { width: `calc(12px + ${percent}%)` }
+								style: { width: `calc(12px + ${percent}%)`, borderRadius: "9999px 0 0 9999px" }
 							}),
 							(0, react_jsx_runtime.jsx)("div", {
 								className: "hero-slider__thumb",
-								style: { left: percent + "%" },
+								style: { left: percent + "%", borderRadius: "9999px" },
 								children: (0, react_jsx_runtime.jsx)("div", {
-									className: "hero-slider__thumb-inner"
+									className: "hero-slider__thumb-inner",
+									style: { borderRadius: "9999px" }
 								})
 							})
 						]
@@ -297,7 +299,8 @@ window.__ModuleLoader__.load({
 						style: {
 							transform: `translateX(${indicator.left}px)`,
 							width: indicator.width + "px",
-							opacity: indicator.ready ? 1 : 0
+							opacity: indicator.ready ? 1 : 0,
+							borderRadius: "9999px"
 						}
 					}),
 					options.map((option) => (0, react_jsx_runtime.jsx)("button", {
@@ -307,6 +310,7 @@ window.__ModuleLoader__.load({
 						"aria-selected": value === option.id,
 						tabIndex: value === option.id ? 0 : -1,
 						className: "hero-tabs__tab",
+						style: { borderRadius: "9999px" },
 						onClick: () => onChange(option.id),
 						children: option.label
 					}, option.id))
