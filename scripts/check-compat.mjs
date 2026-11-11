@@ -37,7 +37,7 @@ assert.match(host, /settings\.configure\(\{ auto: false \}, ctx\.fiber\)/,
 assert.doesNotMatch(host, /settings\.register\(/,
   'the removed DSH 0.1 Host settings API must not remain in the Host entry')
 assert.match(host, /SETTINGS_ENTRY_ID = 'dsh-hero-theme'/)
-assert.match(host, /accentHue: 196\.72/)
+assert.match(host, /accentHue: 253\.83/)
 assert.match(host, /baseChroma: 0\.0015/)
 assert.match(host, /radius: 0\.5/)
 assert.match(host, /fieldRadius: 0\.75/)
@@ -92,8 +92,10 @@ for (const [name, value] of Object.entries(dark)) {
   assert.ok(value.length > 0, `dark ${name} must not be empty`)
 }
 
-assert.match(defaultLight['--dsw-alias-brand-primary'], /196\.72\)$/,
-  'the default accent hue must be the builder default')
+assert.match(defaultLight['--dsw-alias-brand-primary'], /253\.83\)$/,
+  'the default accent hue must be the HeroUI blue')
+assert.equal(oklchToHex(defaultLight['--dsw-alias-brand-primary']), '#0485f7',
+  'the default accent must resolve to HeroUI #0485F7')
 assert.equal(defaultLight['--dsw-menu-surface-fill'], defaultLight['--dsw-alias-bg-overlay'],
   'the menu material must be opaque and match the overlay surface')
 assert.doesNotMatch(defaultLight['--dsw-specific-bubble'], /transparent/,
@@ -143,6 +145,33 @@ function oklchLuminance(value) {
   const g = Math.min(1, Math.max(0, -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s))
   const bl = Math.min(1, Math.max(0, -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s))
   return 0.2126 * r + 0.7152 * g + 0.0722 * bl
+}
+
+/** sRGB hex of an `oklch(L C H)` string, or null. */
+function oklchToHex(value) {
+  const match = /^oklch\(\s*([\d.]+)%\s+([\d.]+)\s+([\d.]+)\s*\)$/.exec(value)
+  if (match === null) return null
+  const lightness = Number(match[1]) / 100
+  const chroma = Number(match[2])
+  const hue = Number(match[3]) * Math.PI / 180
+  const a = chroma * Math.cos(hue)
+  const b = chroma * Math.sin(hue)
+  const l_ = lightness + 0.3963377774 * a + 0.2158037573 * b
+  const m_ = lightness - 0.1055613458 * a - 0.0638541728 * b
+  const s_ = lightness - 0.0894841775 * a - 1.2914855480 * b
+  const l = l_ ** 3
+  const m = m_ ** 3
+  const s = s_ ** 3
+  const channels = [
+    4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s,
+    -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s,
+    -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s
+  ].map((channel) => {
+    const linear = Math.min(1, Math.max(0, channel))
+    const gamma = linear <= 0.0031308 ? 12.92 * linear : 1.055 * linear ** (1 / 2.4) - 0.055
+    return Math.round(gamma * 255).toString(16).padStart(2, '0')
+  })
+  return '#' + channels.join('')
 }
 
 function contrast(a, b) {

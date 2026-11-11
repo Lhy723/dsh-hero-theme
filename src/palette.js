@@ -13,7 +13,7 @@
 
 export const DEFAULT_CONFIG = Object.freeze({
   theme: 'dark',
-  accentHue: 196.72,
+  accentHue: 253.83,
   baseChroma: 0.0015,
   fontFamily: 'Inter',
   radius: 0.5,
@@ -307,7 +307,7 @@ function buildMode(mode, config) {
     '--dsh-hero-radius-tabs': px(config.radius * 2.5),
     '--dsh-hero-segment': segment,
     '--dsh-hero-button-secondary-fg': accentSoftForeground,
-    '--dsh-hero-accent-2': okl(0.585, 0.19, hue + 88),
+    '--dsh-hero-accent-2': okl(0.585, 0.19, hue + 31.67),
 
     '--dsw-shadow-lv1': dark
       ? '0 0 0 0 transparent inset'

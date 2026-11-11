@@ -29,7 +29,7 @@
   <img src=".github/asset/dark.webp" alt="HeroUI dark theme preview" width="49%">
 </p>
 
-<sub align="center">Preview renders of the generated light and dark palettes in a representative DSH layout.</sub>
+<p align="center"><sub>Preview renders of the generated light and dark palettes in a representative DSH layout.</sub></p>
 
 ## Highlights
 
@@ -49,18 +49,18 @@
   <img src=".github/asset/builder-dark.webp" alt="HeroUI theme builder in dark mode" width="49%">
 </p>
 
-<sub align="center">Settings → General → HeroUI theme. The sliders, Tabs and Select are HeroUI-styled controls.</sub>
+<p align="center"><sub>Settings → General → HeroUI theme. The sliders, Tabs and Select are HeroUI-styled controls.</sub></p>
 
 | Control | Range | Default | What it changes |
 | --- | --- | --- | --- |
-| Accent | hue `0–360` | `196.72` | Accent `oklch(62.04% 0.195 hue)`, focus ring, gradient start |
+| Accent | hue `0–360` | `253.83` | Accent `oklch(62.04% 0.195 hue)` (`#0485F7` at the default), focus ring, gradient start |
 | Base | chroma `0–0.02` | `0.0015` | Chroma of every neutral (background, surfaces, text, borders) |
 | Font Family | Inter / System UI / Geist / Manrope / IBM Plex Sans / JetBrains Mono | Inter | `--dsw-font-family` and the brand stack |
 | Radius | `0–1.25rem` | `0.5rem` (8px) | HeroUI radius scale and card radius (`3×`) |
 | Radius Form | `0–1.5rem` | `0.75rem` (12px) | Inputs and form fields |
 | Theme | Light / Dark / System | Dark | Base color scheme and `ctx.theme.setTheme()` |
 
-The default accent is the HeroUI builder's teal at hue `196.72`; the secondary gradient color is generated 88° around the wheel. Fonts must be installed locally — the stack falls back to System UI.
+The default accent is HeroUI blue `#0485F7` at hue `253.83`; the secondary gradient color is generated 31.67° around the wheel toward the HeroUI violet. Fonts must be installed locally — the stack falls back to System UI.
 
 ## Generated palette
 
@@ -81,7 +81,7 @@ Radii: HeroUI component tokens use `3×` (cards), `2.5×` (tabs), `2× + 6px` (p
 
 On top of the generated tokens, `src/hero.css` adds the recognizable HeroUI details:
 
-- **Gradient primary actions** — accent → `accent + 88°` with a soft glow.
+- **Gradient primary actions** — accent → `accent + 31.67°` (blue → violet at the default) with a soft glow.
 - **Aurora wash** — accent/violet gradients on the conversation canvas and sidebar.
 - **HeroUI surfaces** — composer and dialogs use the card radius; Dropdown/Select menu popovers use the 22px dropdown radius. Bubbles, selected sessions, menus and overlays never show the page through.
 - **HeroUI controls** — 36px secondary buttons with the 0.97 press scale, a sliding-indicator Tabs switch for the theme, and a Select with a rotating chevron, 150ms scale/fade popover, 100ms exit and a stroke-drawn check.

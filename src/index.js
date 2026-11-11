@@ -13,7 +13,7 @@ export const SETTINGS_ENTRY_ID = 'dsh-hero-theme'
 /** Default builder values, mirrored by src/palette.js. */
 export const DEFAULT_CONFIG = Object.freeze({
   theme: 'dark',
-  accentHue: 196.72,
+  accentHue: 253.83,
   baseChroma: 0.0015,
   fontFamily: 'Inter',
   radius: 0.5,

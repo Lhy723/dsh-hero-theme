@@ -29,7 +29,7 @@
   <img src=".github/asset/dark.webp" alt="HeroUI 深色主题预览" width="49%">
 </p>
 
-<sub align="center">基于生成令牌的浅色 / 深色预览，使用代表性 DSH 布局渲染。</sub>
+<p align="center"><sub>基于生成令牌的浅色 / 深色预览，使用代表性 DSH 布局渲染。</sub></p>
 
 ## 特性
 
@@ -49,18 +49,18 @@
   <img src=".github/asset/builder-dark.webp" alt="深色模式下的 HeroUI 主题构建器" width="49%">
 </p>
 
-<sub align="center">设置 → 通用 → HeroUI 主题。滑杆、Tabs 与 Select 均为 HeroUI 风格控件。</sub>
+<p align="center"><sub>设置 → 通用 → HeroUI 主题。滑杆、Tabs 与 Select 均为 HeroUI 风格控件。</sub></p>
 
 | 控件 | 范围 | 默认值 | 作用 |
 | --- | --- | --- | --- |
-| Accent | 色相 `0–360` | `196.72` | Accent `oklch(62.04% 0.195 hue)`、焦点环、渐变起点 |
+| Accent | 色相 `0–360` | `253.83` | Accent `oklch(62.04% 0.195 hue)`（默认即 `#0485F7`）、焦点环、渐变起点 |
 | Base | 彩度 `0–0.02` | `0.0015` | 所有中性色的彩度（背景、表面、文字、边框） |
 | Font Family | Inter / System UI / Geist / Manrope / IBM Plex Sans / JetBrains Mono | Inter | `--dsw-font-family` 与品牌字体栈 |
 | Radius | `0–1.25rem` | `0.5rem`（8px） | HeroUI 圆角比例与卡片圆角（`3×`） |
 | Radius Form | `0–1.5rem` | `0.75rem`（12px） | 输入框与表单字段 |
 | Theme | 浅色 / 深色 / 跟随系统 | 深色 | 基础明暗方案与 `ctx.theme.setTheme()` |
 
-默认强调色是 HeroUI 构建器 hue `196.72` 的青绿色；渐变第二色自动取色轮 +88°。字体需系统已安装，否则回退 System UI。
+默认强调色是 HeroUI 蓝 `#0485F7`（hue `253.83`）；渐变第二色取色轮 +31.67°，指向 HeroUI 紫色。字体需系统已安装，否则回退 System UI。
 
 ## 调色板生成规则
 
@@ -81,7 +81,7 @@
 
 在生成令牌之上，`src/hero.css` 补齐 HeroUI 的辨识度：
 
-- **渐变主操作**：accent → accent+88°，带柔和光晕。
+- **渐变主操作**：accent → accent+31.67°（默认蓝 → 紫），带柔和光晕。
 - **极光底色**：对话画布与侧栏叠加 accent/紫色渐变。
 - **HeroUI 表面**：输入区与 Modal 使用卡片圆角；Dropdown/Select 菜单使用 22px 下拉圆角。气泡、选中会话、菜单、弹层都不会透出页面内容。
 - **HeroUI 控件**：36px 次要按钮与 0.97 按压缩放；Theme 使用带滑动指示器的 Tabs；Font Family 使用 Select（旋转箭头、150ms 缩放淡入、100ms 退出、描边勾选动画）。
