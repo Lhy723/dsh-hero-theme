@@ -215,21 +215,16 @@ window.__ModuleLoader__.load({
 		/** HeroUI Slider structure with a native range input overlay. */
 		function HeroSlider({ value, min, max, step, onChange, label }) {
 			const percent = Math.max(0, Math.min(100, ((value - min) / (max - min)) * 100));
-			const accent = "var(--dsw-alias-brand-primary)";
 			return (0, react_jsx_runtime.jsxs)("div", {
 				className: "hero-slider",
 				children: [
 					(0, react_jsx_runtime.jsxs)("div", {
 						className: "hero-slider__track",
 						"aria-hidden": "true",
-						style: {
-							borderLeftColor: value > min ? accent : "transparent",
-							borderRightColor: value >= max ? accent : "transparent"
-						},
 						children: [
 							(0, react_jsx_runtime.jsx)("div", {
 								className: "hero-slider__fill",
-								style: { width: percent + "%" }
+								style: { width: `calc(12px + ${percent}%)` }
 							}),
 							(0, react_jsx_runtime.jsx)("div", {
 								className: "hero-slider__thumb",

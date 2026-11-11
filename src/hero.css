@@ -502,7 +502,8 @@ body[data-dsh-hero] .hero-slider__fill {
 	position: absolute;
 	top: 0;
 	bottom: 0;
-	left: 0;
+	left: -12px;
+	border-radius: 12px 0 0 12px;
 	background: var(--dsw-alias-brand-primary);
 }
 
