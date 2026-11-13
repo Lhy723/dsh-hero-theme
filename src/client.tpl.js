@@ -221,18 +221,18 @@ window.__ModuleLoader__.load({
 					(0, react_jsx_runtime.jsxs)("div", {
 						className: "hero-slider__track",
 						"aria-hidden": "true",
-						style: { borderRadius: "9999px" },
+						style: { borderRadius: "9999px", cornerShape: "round" },
 						children: [
 							(0, react_jsx_runtime.jsx)("div", {
 								className: "hero-slider__fill",
-								style: { width: `calc(12px + ${percent}%)`, borderRadius: "9999px 0 0 9999px" }
+								style: { width: `calc(12px + ${percent}%)`, borderRadius: "9999px 0 0 9999px", cornerShape: "round" }
 							}),
 							(0, react_jsx_runtime.jsx)("div", {
 								className: "hero-slider__thumb",
-								style: { left: percent + "%", borderRadius: "9999px" },
+								style: { left: percent + "%", borderRadius: "9999px", cornerShape: "round" },
 								children: (0, react_jsx_runtime.jsx)("div", {
 									className: "hero-slider__thumb-inner",
-									style: { borderRadius: "9999px" }
+									style: { borderRadius: "9999px", cornerShape: "round" }
 								})
 							})
 						]
@@ -300,7 +300,8 @@ window.__ModuleLoader__.load({
 							transform: `translateX(${indicator.left}px)`,
 							width: indicator.width + "px",
 							opacity: indicator.ready ? 1 : 0,
-							borderRadius: "9999px"
+							borderRadius: "9999px",
+							cornerShape: "round"
 						}
 					}),
 					options.map((option) => (0, react_jsx_runtime.jsx)("button", {
@@ -310,7 +311,7 @@ window.__ModuleLoader__.load({
 						"aria-selected": value === option.id,
 						tabIndex: value === option.id ? 0 : -1,
 						className: "hero-tabs__tab",
-						style: { borderRadius: "9999px" },
+						style: { borderRadius: "9999px", cornerShape: "round" },
 						onClick: () => onChange(option.id),
 						children: option.label
 					}, option.id))

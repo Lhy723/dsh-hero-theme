@@ -26,6 +26,19 @@ body[data-dsh-hero] {
 	--hero-violet: var(--dsh-hero-accent-2, #7577f0);
 }
 
+/*
+ * DSH globally rounds every corner as a superellipse(1.5) squircle
+ * (*, ::before, ::after { corner-shape: var(--dsw-corner-shape) }). HeroUI v3
+ * uses circular corner arcs, and capsule radii (9999px) render as plain
+ * rounded rectangles under a squircle shape — so the brand layer restores
+ * corner-shape: round on everything it paints.
+ */
+body[data-dsh-hero] *,
+body[data-dsh-hero] *::before,
+body[data-dsh-hero] *::after {
+	corner-shape: round;
+}
+
 /* HeroUI brand wash: one accent glow from the top, one violet glow from the
    upper right. Painted over the opaque canvas, never through the content. */
 body[data-dsh-hero] [data-conversation-content] {
