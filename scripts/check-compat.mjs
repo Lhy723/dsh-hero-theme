@@ -26,11 +26,15 @@ assert.ok(manifest.dsh.client.inject.includes('@deepseek-ai/dsh-client-ui-settin
 assert.ok(!manifest.dsh.client.inject.includes('@deepseek-ai/dsh-client-runtime'),
   'the removed DSH 0.1 module id must not remain in the client graph')
 
-for (const field of ['theme', 'accentHue', 'baseChroma', 'fontFamily', 'radius', 'fieldRadius']) {
+const BUILDER_FIELDS = [
+  'theme', 'accentHue', 'accentChroma', 'accentLightness', 'baseChroma', 'vibrant',
+  'fontFamily', 'radius', 'fieldRadius',
+]
+for (const field of BUILDER_FIELDS) {
   assert.match(host, new RegExp(`${field}: z\\.`), `Host Config must declare ${field}`)
 }
-assert.equal((host.match(/\.volatile\(\)/g) ?? []).length, 6,
-  'all six builder fields must be volatile')
+assert.equal((host.match(/\.volatile\(\)/g) ?? []).length, BUILDER_FIELDS.length,
+  `all ${BUILDER_FIELDS.length} builder fields must be volatile`)
 assert.doesNotMatch(host, /preference:/, 'the single-skin preference field must be gone')
 assert.match(host, /settings\.configure\(\{ auto: false \}, ctx\.fiber\)/,
   'the custom settings row must disable automatic form generation')
@@ -208,16 +212,46 @@ assert.match(heroCss, /hero-shimmer/,
   'the HeroUI skeleton shimmer must be present')
 assert.match(heroCss, /linear-gradient\(135deg, var\(--dsw-alias-brand-primary\)/,
   'primary actions must carry the HeroUI brand gradient')
-assert.match(heroCss, /\.hero-slider__track/,
-  'the settings sliders must use the HeroUI track')
-assert.match(heroCss, /\.hero-slider__thumb-inner/,
-  'the settings sliders must use the HeroUI inner thumb')
-assert.match(heroCss, /border-left: 12px solid transparent/,
-  'the HeroUI track must reserve the 12px end caps')
-assert.match(client, /className: "hero-slider__input"/,
+assert.match(heroCss, /\.hero-color-slider__track/,
+  'the settings sliders must use the HeroUI gradient track')
+assert.match(heroCss, /\.hero-color-slider__thumb/,
+  'the settings sliders must use the HeroUI circular thumb')
+assert.match(heroCss, /\.hero-disc__ring/,
+  'the accent control must expose the conic color disc')
+assert.match(heroCss, /\.hero-popover\[data-phase='enter'\]/,
+  'the builder panels must carry the HeroUI popover enter motion')
+assert.match(heroCss, /\.hero-radius-card\[data-selected='true'\]/,
+  'the radius panel must mark the selected option')
+assert.match(heroCss, /\.hero-theme-item\[data-selected='true'\]/,
+  'the theme panel must mark the selected preset')
+assert.match(client, /className: "hero-color-slider__input"/,
   'the builder row must render the native input overlay')
-assert.match(client, /className: "hero-slider__thumb"/,
-  'the builder row must render the HeroUI thumb')
+assert.match(client, /function HeroColorPanel\(/,
+  'the accent control must open the HeroUI color panel')
+assert.match(client, /function HeroRadiusPanel\(/,
+  'the radius controls must open a radius option panel')
+assert.match(client, /function HeroThemePanel\(/,
+  'the theme control must open the preset panel')
+assert.match(client, /function HeroFieldTrigger\(/,
+  'the radius and theme controls must use the field trigger')
+assert.match(heroCss, /\[role='switch'\]:not\(\.hero-switch\)/,
+  'the shipped switches must use the HeroUI 40x20 capsule geometry')
+assert.match(heroCss, /kbd:not\(\.hero-kbd\)/,
+  'the shipped shortcut badges must use the HeroUI kbd geometry')
+assert.match(heroCss, /\[class\*='_markdown'\] \[class\*='_tableScroll'\]/,
+  'markdown tables must use the HeroUI table surface')
+assert.match(heroCss, /\[class\*='_tag_'\]/,
+  'plugin status tags must use the HeroUI tag geometry')
+assert.match(heroCss, /\[class\*='_card'\]\[class\*='_cardLink'\]/,
+  'plugin market cards must use the HeroUI card surface')
+assert.match(heroCss, /\[data-turn-process\]/,
+  'the per-turn process row must use the HeroUI disclosure header')
+assert.match(heroCss, /hero-scroll-top-fade/,
+  'scroll containers must use the HeroUI scroll shadow')
+assert.match(heroCss, /hero-spinner-spin/,
+  'the boot spinner must use the HeroUI ring motion')
+assert.match(heroCss, /\[data-sidebar-right-panel\]\[data-sidebar-right-open='true'\]/,
+  'the right sidebar must use the HeroUI sheet surface')
 assert.match(client, /function HeroTabs\(/,
   'the theme switch must use the HeroUI Tabs structure')
 assert.match(client, /function HeroSelect\(/,

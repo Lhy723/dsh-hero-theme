@@ -14,7 +14,10 @@
 export const DEFAULT_CONFIG = Object.freeze({
   theme: 'dark',
   accentHue: 253.83,
+  accentChroma: 0.195,
+  accentLightness: 0.6204,
   baseChroma: 0.0015,
+  vibrant: false,
   fontFamily: 'Inter',
   radius: 0.5,
   fieldRadius: 0.75,
@@ -48,8 +51,10 @@ const soft = (color, percent) => `color-mix(in oklab, ${color} ${percent}%, tran
 const px = (rem) => `${Math.round(rem * 16 * 100) / 100}px`
 
 /** Accent swatch color for a raw hue, used by the settings preview. */
-export function accentColor(hue) {
-  return okl(0.6204, 0.195, Number(hue) || 0)
+export function accentColor(hue, lightness, chromaValue) {
+  const l = Number.isFinite(Number(lightness)) ? Number(lightness) : DEFAULT_CONFIG.accentLightness
+  const c = Number.isFinite(Number(chromaValue)) ? Number(chromaValue) : DEFAULT_CONFIG.accentChroma
+  return okl(clamp(l, 0, 1), clamp(c, 0, 0.4), Number(hue) || 0)
 }
 
 /** Resolve a stored config into the values the generator understands. */
@@ -66,9 +71,16 @@ export function normalizeConfig(input = {}) {
     accentHue: Number.isFinite(Number(raw.accentHue))
       ? hueOf(Number(raw.accentHue))
       : DEFAULT_CONFIG.accentHue,
+    accentChroma: Number.isFinite(Number(raw.accentChroma))
+      ? clamp(Number(raw.accentChroma), 0, 0.4)
+      : DEFAULT_CONFIG.accentChroma,
+    accentLightness: Number.isFinite(Number(raw.accentLightness))
+      ? clamp(Number(raw.accentLightness), 0, 1)
+      : DEFAULT_CONFIG.accentLightness,
     baseChroma: Number.isFinite(Number(raw.baseChroma))
       ? clamp(Number(raw.baseChroma), 0, 0.02)
       : DEFAULT_CONFIG.baseChroma,
+    vibrant: raw.vibrant === true,
     fontFamily,
     radius: Number.isFinite(Number(raw.radius))
       ? clamp(Number(raw.radius), 0, 2)
@@ -98,19 +110,21 @@ function fontStack(fontFamily) {
 function buildMode(mode, config) {
   const dark = mode === 'dark'
   const hue = config.accentHue
-  const base = config.baseChroma
+  /* Vibrant palette: more saturated neutrals and semantics, as in HeroUI. */
+  const base = config.baseChroma * (config.vibrant ? 1.8 : 1)
+  const chromaBoost = config.vibrant ? 1.15 : 1
   const shift = (hue - REF_ACCENT_HUE) * SEMANTIC_SHIFT
   const successHue = SUCCESS_HUE + shift
   const warningHue = (dark ? DARK_WARNING_HUE : LIGHT_WARNING_HUE) + shift
   const dangerHue = (dark ? DARK_DANGER_HUE : LIGHT_DANGER_HUE) + shift
 
-  const accent = okl(0.6204, 0.195, hue)
-  const accentFg = okl(0.9911, 0, 0)
-  const success = okl(0.7329, 0.1935, successHue)
+  const accent = okl(config.accentLightness, config.accentChroma * (config.vibrant ? 1.1 : 1), hue)
+  const accentFg = config.accentLightness > 0.72 ? okl(0.2103, 0.0059, hue) : okl(0.9911, 0, 0)
+  const success = okl(0.7329, 0.1935 * chromaBoost, successHue)
   const successFg = okl(0.2103, 0.0059, successHue)
-  const warning = okl(dark ? 0.8203 : 0.7819, dark ? 0.1388 : 0.1585, warningHue)
+  const warning = okl(dark ? 0.8203 : 0.7819, (dark ? 0.1388 : 0.1585) * chromaBoost, warningHue)
   const warningFg = okl(0.2103, 0.0059, warningHue)
-  const danger = okl(dark ? 0.594 : 0.6532, dark ? 0.1967 : 0.2328, dangerHue)
+  const danger = okl(dark ? 0.594 : 0.6532, (dark ? 0.1967 : 0.2328) * chromaBoost, dangerHue)
   const dangerFg = accentFg
 
   const background = okl(dark ? 0.12 : 0.9702, base, hue)

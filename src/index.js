@@ -14,7 +14,10 @@ export const SETTINGS_ENTRY_ID = 'dsh-hero-theme'
 export const DEFAULT_CONFIG = Object.freeze({
   theme: 'dark',
   accentHue: 253.83,
+  accentChroma: 0.195,
+  accentLightness: 0.6204,
   baseChroma: 0.0015,
+  vibrant: false,
   fontFamily: 'Inter',
   radius: 0.5,
   fieldRadius: 0.75,
@@ -24,7 +27,10 @@ export const DEFAULT_CONFIG = Object.freeze({
 export const Config = z.object({
   theme: z.union(['light', 'dark', 'system']).default(DEFAULT_CONFIG.theme).volatile(),
   accentHue: z.number().min(0).max(360).default(DEFAULT_CONFIG.accentHue).volatile(),
+  accentChroma: z.number().min(0).max(0.4).default(DEFAULT_CONFIG.accentChroma).volatile(),
+  accentLightness: z.number().min(0).max(1).default(DEFAULT_CONFIG.accentLightness).volatile(),
   baseChroma: z.number().min(0).max(0.02).default(DEFAULT_CONFIG.baseChroma).volatile(),
+  vibrant: z.boolean().default(DEFAULT_CONFIG.vibrant).volatile(),
   fontFamily: z.string().default(DEFAULT_CONFIG.fontFamily).volatile(),
   radius: z.number().min(0).max(2).default(DEFAULT_CONFIG.radius).volatile(),
   fieldRadius: z.number().min(0).max(3).default(DEFAULT_CONFIG.fieldRadius).volatile(),
