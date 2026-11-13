@@ -12,3 +12,8 @@ lib/
 *.log
 .vscode/
 .idea/
+
+# agent tool state (playwright mcp, mimosa, video2code)
+.playwright-mcp/
+.mimosa/
+.v2c/
