@@ -17,7 +17,7 @@
 
 <p align="center">
   <b>DeepSeek Harness Web 与内嵌桌面工作区</b>的 <b>HeroUI v3 主题构建器</b>。<br>
-  六个实时控件重新生成完整的 DSH 令牌层 —— 不用重新构建，也不用重启 profile。
+  实时控件与品牌预设重新生成完整的 DSH 令牌层 —— 不用重新构建，也不用重启 profile。
 </p>
 
 <p align="center">
@@ -37,7 +37,7 @@
 
 | | |
 | --- | --- |
-| **六个实时控件** | Accent 色相、Base 彩度、Font Family、Radius、Radius Form、浅色 / 深色 / 跟随系统。 |
+| **七个实时控件** | Accent（色相 / 彩度 / 亮度 + Vibrant）、Base 彩度、Font Family、Radius、Radius Form、Theme 预设、浅色 / 深色 / 跟随系统。 |
 | **167 个令牌 × 2 套方案** | 所有 alias、specific、Shiki、圆角、阴影与时长令牌都由配置重新生成。 |
 | **HeroUI 构建器公式** | Accent `oklch(62.04% 0.195 hue)`、中性色彩度缩放、语义色相旋转、圆角比例。 |
 | **组件几何与动效** | HeroUI Slider、Tabs、Select、Button、MenuSurface、Dialog、Tooltip 的尺寸与进出场动画。 |
@@ -51,18 +51,19 @@
   <img src=".github/asset/builder-dark-blue.webp" alt="深色模式下的 HeroUI 主题构建器" width="49%">
 </p>
 
-<p align="center"><sub>设置 → 通用 → HeroUI 主题。滑杆、Tabs 与 Select 均为 HeroUI 风格控件。</sub></p>
+<p align="center"><sub>设置 → 通用 → HeroUI 主题。彩色滑杆、圆盘面板、预设选择器与明暗 Tabs 均复刻 HeroUI 主题页。</sub></p>
 
 | 控件 | 范围 | 默认值 | 作用 |
 | --- | --- | --- | --- |
-| Accent | 色相 `0–360` | `253.83` | Accent `oklch(62.04% 0.195 hue)`（默认即 `#0485F7`）、焦点环、渐变起点 |
+| Accent | 色相 `0–360` · 彩度 `0–0.4` · 亮度 `0–1` | `#0485F7` | 彩虹滑杆 + 可展开的圆盘面板（色板、HEX、随机）；决定 accent 令牌、焦点环与渐变起点 |
 | Base | 彩度 `0–0.02` | `0.0015` | 所有中性色的彩度（背景、表面、文字、边框） |
 | Font Family | Inter / System UI / Geist / Manrope / IBM Plex Sans / JetBrains Mono | Inter | `--dsw-font-family` 与品牌字体栈 |
-| Radius | `0–1.25rem` | `0.5rem`（8px） | HeroUI 圆角比例与卡片圆角（`3×`） |
-| Radius Form | `0–1.5rem` | `0.75rem`（12px） | 输入框与表单字段 |
-| Theme | 浅色 / 深色 / 跟随系统 | 深色 | 基础明暗方案与 `ctx.theme.setTheme()` |
+| Radius | XS / S / M / L / XL | M（8px） | HeroUI 圆角比例与卡片圆角（`3×`） |
+| Radius Form | XS / S / M / L / XL | L（12px） | 输入框与表单字段 |
+| Theme | 11 个预设 | Default | 一键品牌配色：Sky、Lavender、Mint、Netflix、Uber、Spotify、Coinbase、Airbnb、Discord、Rabbit |
+| 浅色 / 深色 / 跟随系统 | — | 深色 | 基础明暗方案与 `ctx.theme.setTheme()` |
 
-默认强调色是 HeroUI 蓝 `#0485F7`（hue `253.83`）；渐变第二色取色轮 +31.67°，指向 HeroUI 紫色。字体需系统已安装，否则回退 System UI。
+默认强调色是 HeroUI 蓝 `#0485F7`（`oklch(62.04% 0.195 253.83)`）；渐变第二色取色轮 +31.67°，指向 HeroUI 紫色。**Vibrant** 会把 accent 彩度放大 `×1.1`、中性色彩度放大 `×1.8`。字体需系统已安装，否则回退 System UI。
 
 ## 调色板生成规则
 
@@ -86,8 +87,9 @@
 - **渐变主操作**：accent → accent+31.67°（默认蓝 → 紫），带柔和光晕。
 - **极光底色**：对话画布与侧栏叠加 accent/紫色渐变。
 - **HeroUI 表面**：输入区与 Modal 使用卡片圆角；Dropdown/Select 菜单使用 22px 下拉圆角。气泡、选中会话、菜单、弹层都不会透出页面内容。
-- **HeroUI 控件**：36px 次要按钮与 0.97 按压缩放；Theme 使用带滑动指示器的 Tabs；Font Family 使用 Select（旋转箭头、150ms 缩放淡入、100ms 退出、描边勾选动画）。
-- **HeroUI 滑杆**：20px 轨道、两端 12px 透明端帽、28×20 accent 滑块与 24×16 内芯；底层覆盖一个不可见的原生 range，保留指针、键盘与 aria 语义。
+- **HeroUI 控件**：36px 次要按钮与 0.97 按压缩放；明暗使用带滑动指示器的 Tabs；Font Family 使用 Select（旋转箭头、150ms 缩放淡入、100ms 退出、描边勾选动画）。
+- **HeroUI 组件层**：双层主表格、无边框卡片、36px ListBox 菜单、Select 触发器、扁平 kbd、标签与右侧 Sheet 均对齐 HeroUI v3 组件 CSS 的几何。
+- **HeroUI 彩色滑杆**：160×24 彩虹 / 彩度轨道、16px 滑块与白色描边；底层覆盖一个不可见的原生 range，保留指针、键盘与 aria 语义。
 - **动效**：按钮 `scale(0.97)`、弹层/弹窗/Tooltip 进入缩放、2s skeleton 扫光、用户消息入场；全部尊重 `prefers-reduced-motion`。
 
 ## 安装
@@ -108,7 +110,23 @@ pnpm add dsh-hero-theme
 
 把 `"dsh-hero-theme"` 加入该 profile `package.json` 的 `dsh.profile.bundles`，重启 profile。
 
-打开 **设置 → 通用 → HeroUI 主题**。拖动 Accent/Base/Radius/Radius Form，选择字体与明暗；每次修改立即生效并写入当前 profile 的 Cordis patch。**重置** 回到构建器默认值。
+打开 **设置 → 通用 → HeroUI 主题**。在彩色滑杆或圆盘面板上取 Accent 色，选择 Radius 档位、主题预设与字体；每次修改立即生效并写入当前 profile 的 Cordis patch。**重置** 回到构建器默认值。
+
+## 更新日志
+
+### 0.2.15 — 2026-11-13
+
+- 主题构建器重构，对齐 [HeroUI 主题页](https://heroui.com/en/themes)：彩虹 Accent 滑杆 + 可展开圆盘面板（彩度 / 亮度 / Vibrant、色板、HEX、随机）、Radius 与 Radius Form 档位选择器、11 个主题预设（Default、Sky、Lavender、Mint、Netflix、Uber、Spotify、Coinbase、Airbnb、Discord、Rabbit）。
+- DSH 各表面的 HeroUI 组件层：双层主表格、无边框卡片、36px ListBox 菜单项与右对齐勾选、Select 触发器、扁平 kbd、标签、搜索框外壳聚焦环、右侧 Sheet。
+- Select 触发器、开关、kbd、表格、标签、卡片、折叠与空状态的几何对齐 HeroUI v3 组件 CSS。
+
+### 0.2.14 — 2026-11-13
+
+- 修复滑轨、滑块与 Tabs 的真胶囊形状 —— 在宿主全局超椭圆圆角之上恢复 `corner-shape: round`，并对滑杆与 Tabs 强制内联胶囊半径。
+
+### 0.2.13 及更早
+
+- HeroUI v3 令牌生成器（167 个令牌 × 明暗两套）、六控件构建器、品牌渐变层、极光底色与 HeroUI 动效。详见[提交历史](https://github.com/Lhy723/dsh-hero-theme/commits)。
 
 ## 实现方式
 

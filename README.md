@@ -17,7 +17,7 @@
 
 <p align="center">
   A <b>HeroUI v3 theme builder</b> for DeepSeek Harness Web and the embedded Desktop workspace.<br>
-  Six live controls regenerate the complete DSH token layer — no rebuild, no profile restart.
+  Live controls and brand presets regenerate the complete DSH token layer — no rebuild, no profile restart.
 </p>
 
 <p align="center">
@@ -37,7 +37,7 @@
 
 | | |
 | --- | --- |
-| **Six live controls** | Accent hue, Base chroma, Font Family, Radius, Radius Form, Light / Dark / System. |
+| **Seven live controls** | Accent (hue / chroma / lightness + vibrant), Base chroma, Font Family, Radius, Radius Form, Theme presets, Light / Dark / System. |
 | **167 tokens × 2 schemes** | Every alias, specific, Shiki, radius, shadow and timing token is regenerated from the config. |
 | **HeroUI builder formulas** | Accent `oklch(62.04% 0.195 hue)`, neutral chroma scaling, semantic hue rotation, radius scale. |
 | **Component geometry** | HeroUI Slider, Tabs, Select, Button, MenuSurface, Dialog and Tooltip geometry plus enter/exit motion. |
@@ -51,18 +51,19 @@
   <img src=".github/asset/builder-dark-blue.webp" alt="HeroUI theme builder in dark mode" width="49%">
 </p>
 
-<p align="center"><sub>Settings → General → HeroUI theme. The sliders, Tabs and Select are HeroUI-styled controls.</sub></p>
+<p align="center"><sub>Settings → General → HeroUI theme. The color slider, color disc, preset pickers and appearance tabs mirror the HeroUI themes page.</sub></p>
 
 | Control | Range | Default | What it changes |
 | --- | --- | --- | --- |
-| Accent | hue `0–360` | `253.83` | Accent `oklch(62.04% 0.195 hue)` (`#0485F7` at the default), focus ring, gradient start |
+| Accent | hue `0–360` · chroma `0–0.4` · lightness `0–1` | `#0485F7` | Rainbow slider with an expandable color-disc panel (swatches, hex, shuffle); drives accent tokens, focus ring and gradient start |
 | Base | chroma `0–0.02` | `0.0015` | Chroma of every neutral (background, surfaces, text, borders) |
 | Font Family | Inter / System UI / Geist / Manrope / IBM Plex Sans / JetBrains Mono | Inter | `--dsw-font-family` and the brand stack |
-| Radius | `0–1.25rem` | `0.5rem` (8px) | HeroUI radius scale and card radius (`3×`) |
-| Radius Form | `0–1.5rem` | `0.75rem` (12px) | Inputs and form fields |
-| Theme | Light / Dark / System | Dark | Base color scheme and `ctx.theme.setTheme()` |
+| Radius | XS / S / M / L / XL | M (8px) | HeroUI radius scale and card radius (`3×`) |
+| Radius Form | XS / S / M / L / XL | L (12px) | Inputs and form fields |
+| Theme | 11 presets | Default | One-click brand palettes: Sky, Lavender, Mint, Netflix, Uber, Spotify, Coinbase, Airbnb, Discord, Rabbit |
+| Light / Dark / System | — | Dark | Base color scheme and `ctx.theme.setTheme()` |
 
-The default accent is HeroUI blue `#0485F7` at hue `253.83`; the secondary gradient color is generated 31.67° around the wheel toward the HeroUI violet. Fonts must be installed locally — the stack falls back to System UI.
+The default accent is HeroUI blue `#0485F7` at `oklch(62.04% 0.195 253.83)`; the secondary gradient color is generated 31.67° around the wheel toward the HeroUI violet. **Vibrant** boosts accent chroma `×1.1` and neutral chroma `×1.8`. Fonts must be installed locally — the stack falls back to System UI.
 
 ## Generated palette
 
@@ -86,8 +87,9 @@ On top of the generated tokens, `src/hero.css` adds the recognizable HeroUI deta
 - **Gradient primary actions** — accent → `accent + 31.67°` (blue → violet at the default) with a soft glow.
 - **Aurora wash** — accent/violet gradients on the conversation canvas and sidebar.
 - **HeroUI surfaces** — composer and dialogs use the card radius; Dropdown/Select menu popovers use the 22px dropdown radius. Bubbles, selected sessions, menus and overlays never show the page through.
-- **HeroUI controls** — 36px secondary buttons with the 0.97 press scale, a sliding-indicator Tabs switch for the theme, and a Select with a rotating chevron, 150ms scale/fade popover, 100ms exit and a stroke-drawn check.
-- **HeroUI sliders** — 20px track with 12px end caps, a 28×20 accent thumb and a 24×16 inner face; an invisible native range input keeps pointer, keyboard and aria semantics.
+- **HeroUI controls** — 36px secondary buttons with the 0.97 press scale, a sliding-indicator Tabs switch for the appearance, and a Select with a rotating chevron, 150ms scale/fade popover, 100ms exit and a stroke-drawn check.
+- **HeroUI component layer** — two-layer primary tables, borderless cards, 36px ListBox menus, Select triggers, flat kbd badges, tags and the right-side sheet follow the HeroUI v3 component CSS geometry.
+- **HeroUI color sliders** — 160×24 rainbow/chroma tracks with a 16px thumb and white ring; an invisible native range input keeps pointer, keyboard and aria semantics.
 - **Motion** — button `scale(0.97)`, popover/dialog/tooltip enter scales, 2s skeleton shimmer, user-message entrance; all disabled under `prefers-reduced-motion`.
 
 ## Install
@@ -109,7 +111,23 @@ pnpm add dsh-hero-theme
 Add `"dsh-hero-theme"` to `dsh.profile.bundles` in that profile's
 `package.json` and restart the profile.
 
-Then open **Settings → General → HeroUI theme**. Drag Accent/Base/Radius/Radius Form, choose a font and theme; every change applies immediately and is saved into the active profile's Cordis patch. **Reset** returns to the builder defaults.
+Then open **Settings → General → HeroUI theme**. Pick an accent on the color slider or the disc panel, choose Radius presets, a theme preset and a font; every change applies immediately and is saved into the active profile's Cordis patch. **Reset** returns to the builder defaults.
+
+## Changelog
+
+### 0.2.15 — 2026-11-13
+
+- Theme builder rebuilt to match the [HeroUI themes page](https://heroui.com/en/themes): rainbow Accent slider with an expandable color-disc panel (chroma / lightness / vibrant, swatches, hex, shuffle), Radius & Radius Form preset pickers, and an 11-preset Theme gallery (Default, Sky, Lavender, Mint, Netflix, Uber, Spotify, Coinbase, Airbnb, Discord, Rabbit).
+- HeroUI component layer across DSH surfaces: two-layer primary tables, borderless cards, 36px ListBox menu items with end-aligned checks, Select triggers, flat kbd badges, tags, a field-shell search focus ring, and the right-side sheet.
+- Select triggers, switch, kbd, table, tag, card, disclosure and empty-state geometry aligned with HeroUI v3 component CSS.
+
+### 0.2.14 — 2026-11-13
+
+- Restored true capsule shapes for slider tracks, thumbs and tabs — `corner-shape: round` over the host's global superellipse default, with inline capsule radii for slider and tab controls.
+
+### 0.2.13 and earlier
+
+- HeroUI v3 token generator (167 tokens × light/dark), six-control builder, brand gradient layer, aurora wash and HeroUI motion. See the [commit history](https://github.com/Lhy723/dsh-hero-theme/commits).
 
 ## How it works
 
