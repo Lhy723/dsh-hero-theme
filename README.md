@@ -115,6 +115,11 @@ Then open **Settings → General → HeroUI theme**. Pick an accent on the color
 
 ## Changelog
 
+### 0.2.16 — 2026-11-14
+
+- Appearance tabs and the live-preview pill now hug their content instead of stretching across the whole settings column.
+- Fixed theme switches bouncing old → new → old: the builder ignores stale echoes of its own pending writes, and skips theme adoption while its scheme write is still in flight.
+
 ### 0.2.15 — 2026-11-13
 
 - Theme builder rebuilt to match the [HeroUI themes page](https://heroui.com/en/themes): rainbow Accent slider with an expandable color-disc panel (chroma / lightness / vibrant, swatches, hex, shuffle), Radius & Radius Form preset pickers, and an 11-preset Theme gallery (Default, Sky, Lavender, Mint, Netflix, Uber, Spotify, Coinbase, Airbnb, Discord, Rabbit).

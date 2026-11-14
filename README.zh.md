@@ -114,6 +114,11 @@ pnpm add dsh-hero-theme
 
 ## 更新日志
 
+### 0.2.16 — 2026-11-14
+
+- 明暗 Tabs 与实时预览胶囊收紧为内容宽度，不再横跨整个设置列。
+- 修复切换明暗或主题预设时"新 → 旧 → 新"的往返弹跳：构建器现在会忽略自身待写入字段的旧回声，并在明暗写入未确认期间不采纳旧 preference。
+
 ### 0.2.15 — 2026-11-13
 
 - 主题构建器重构，对齐 [HeroUI 主题页](https://heroui.com/en/themes)：彩虹 Accent 滑杆 + 可展开圆盘面板（彩度 / 亮度 / Vibrant、色板、HEX、随机）、Radius 与 Radius Form 档位选择器、11 个主题预设（Default、Sky、Lavender、Mint、Netflix、Uber、Spotify、Coinbase、Airbnb、Discord、Rabbit）。
