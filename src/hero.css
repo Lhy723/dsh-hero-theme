@@ -231,6 +231,7 @@ body[data-dsh-hero] .hero-tabs {
 	position: relative;
 	display: inline-flex;
 	align-items: center;
+	justify-self: start;
 	padding: 4px;
 	border-radius: var(--dsh-hero-radius-tabs);
 	background: var(--dsw-alias-interactive-bg-hover);

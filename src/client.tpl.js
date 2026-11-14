@@ -197,6 +197,7 @@ window.__ModuleLoader__.load({
 			preview: {
 				display: "flex",
 				alignItems: "center",
+				justifySelf: "start",
 				gap: "6px",
 				padding: "10px",
 				borderRadius: "var(--dsh-hero-radius-card)",
