@@ -1505,6 +1505,12 @@ window.__ModuleLoader__.load({
 			let applying = false;
 			let baseReady = false;
 			const writeTimers = new Map();
+			// Fields we wrote ourselves, held until the settings echo confirms
+			// them. The transport commits writes one by one, so an echo read
+			// mid-cascade still carries stale values for the fields that have
+			// not landed yet; re-applying those is what makes the tabs
+			// indicator and theme trigger bounce old → new → old.
+			const selfWrites = new Map();
 
 			const publish = () => bound?.sync(current);
 
@@ -1551,10 +1557,21 @@ window.__ModuleLoader__.load({
 			};
 
 			const writeField = (field, value) => {
+				selfWrites.set(field, value);
 				const write = value === DEFAULT_CONFIG[field]
 					? heroSettings.unset(field)
 					: heroSettings.set(field, value);
-				void Promise.resolve(write).catch(reportWriteFailure);
+				void Promise.resolve(write)
+					.then(() => {
+						// Safety valve: drop the guard even if the echo never arrives.
+						setTimeout(() => {
+							if (selfWrites.get(field) === value) selfWrites.delete(field);
+						}, 400);
+					})
+					.catch((error) => {
+						selfWrites.delete(field);
+						reportWriteFailure(error);
+					});
 			};
 
 			const scheduleWrite = (field, value, immediate) => {
@@ -1583,18 +1600,29 @@ window.__ModuleLoader__.load({
 				writeTimers.clear();
 				const next = normalizeConfig(DEFAULT_CONFIG);
 				applyConfig(next, true);
-				for (const field of CONFIG_FIELDS) {
-					void Promise.resolve(heroSettings.unset(field)).catch(reportWriteFailure);
-				}
+				for (const field of CONFIG_FIELDS) writeField(field, DEFAULT_CONFIG[field]);
 			};
 
 			const onConfigChange = () => {
 				const next = readConfig(heroSettings.getSnapshot());
+				let unsettled = false;
+				for (const [field, written] of selfWrites) {
+					if (next[field] === written) selfWrites.delete(field);
+					else unsettled = true;
+				}
+				// A snapshot that still disagrees with one of our pending writes
+				// is the stale echo of that write, not a real external change.
+				if (unsettled) return;
 				if (!sameConfig(next, current)) applyConfig(next, false);
 			};
 
 			const onThemeChange = (snapshot) => {
 				if (applying) return;
+				// Disposing the override layer re-emits theme/change while our
+				// own scheme write is still in flight, and the presenter can
+				// briefly report the old preference; adopting it flips the
+				// appearance tabs back before the echo restores the new one.
+				if (selfWrites.has("theme")) return;
 				const preference = snapshot.preference;
 				if (preference !== "light" && preference !== "dark" && preference !== "system") return;
 				if (preference === current.theme) return;
